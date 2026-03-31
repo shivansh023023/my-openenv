@@ -1,8 +1,0 @@
-version: '1.0'
-name: 'Automated Data Engineering & Quality Control'
-description: >
-  An AI agent must interact with a simulated 'Data Lake' (a folder of messy CSVs/JSONs) to clean, join, and validate data for a production ML pipeline.
-docker:
-  build: Dockerfile
-entrypoint:
-  server: uvicorn server:app --host 0.0.0.0 --port 8000
