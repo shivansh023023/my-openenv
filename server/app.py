@@ -140,10 +140,10 @@ class DataEnv:
 
     def step(self, action: Action) -> tuple[Observation, float, bool]:
         if self.done:
-            return self._get_observation(), 0.0, True
+            return self._get_observation(), 0.01, True
 
         self.error_log = ""
-        reward = 0.0
+        reward = 0.01
 
         try:
             if isinstance(action, ReadAction):
@@ -236,7 +236,7 @@ class DataEnv:
                 if os.path.exists(path):
                     submit_df = pd.read_csv(path)
                 else:
-                    return 0.0
+                    return 0.01
             else:
                 submit_df = self.state_dfs[self.final_submission_path]
 
@@ -246,8 +246,8 @@ class DataEnv:
                 has_dupes = submit_df.duplicated().any()
                 expected_len = 5
                 if not has_nulls and not has_dupes and len(submit_df) == expected_len:
-                    return 1.0
-                return 0.5 if not has_nulls or not has_dupes else 0.0
+                    return 0.99
+                return 0.5 if not has_nulls or not has_dupes else 0.01
 
             elif task == "medium":
                 # Check join and date formatting
@@ -255,21 +255,21 @@ class DataEnv:
                     # check dates
                     dates_ok = all(len(str(d)) == 10 and str(d).count("-") == 2 for d in submit_df["date"])
                     if dates_ok and len(submit_df) == 4:
-                        return 1.0
-                return 0.0
+                        return 0.99
+                return 0.01
 
             elif task == "hard":
                 # Check outliers removed and specific schema
                 if "transaction_id" in submit_df.columns and "amount" in submit_df.columns:
                     max_val = submit_df["amount"].max()
                     if max_val < 100: # We added outliers 200-300
-                        return 1.0
-                return 0.0
+                        return 0.99
+                return 0.01
 
         except Exception:
-            return 0.0
+            return 0.01
 
-        return 0.0
+        return 0.01
 
 env = DataEnv()
 
