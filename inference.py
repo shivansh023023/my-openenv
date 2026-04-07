@@ -3,13 +3,13 @@ import json
 import requests
 from openai import OpenAI
 
-# Ensure we read OPENAI_API_KEY from the environment
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "dummy_key")
+# Ensure we read API_KEY from the environment (LiteLLM proxy requirement)
+API_KEY = os.environ.get("API_KEY", "dummy_key")
 MODEL_NAME = os.environ.get("MODEL_NAME", "gpt-4o-mini")
-API_BASE_URL = os.environ.get("API_BASE_URL") # Handled elegantly if None
+API_BASE_URL = os.environ.get("API_BASE_URL") # Required by grader LLM Proxy
 
 client = OpenAI(
-    api_key=OPENAI_API_KEY,
+    api_key=API_KEY,
     base_url=API_BASE_URL,
     timeout=20.0
 )
