@@ -1,8 +1,11 @@
 version: '1.0'
-name: 'Automated Data Engineering & Quality Control'
+name: 'DataPipeline-Sentry: Financial Data Lake Reliability'
 description: >
-  An AI agent must interact with a simulated 'Data Lake' (a folder of messy CSVs/JSONs) to clean, join, and validate data for a production ML pipeline.
+  An AI agent acts as a Data Reliability Engineer managing a real-time
+  Financial Data Lake.  It must detect schema drift, handle late-arriving
+  trade data, and quarantine poisoned data sources to prevent
+  multi-million dollar trading errors.
 docker:
   build: Dockerfile
 entrypoint:
-  server: uvicorn server:app --host 0.0.0.0 --port 8000
+  server: uvicorn app.server:app --host 0.0.0.0 --port 7860
